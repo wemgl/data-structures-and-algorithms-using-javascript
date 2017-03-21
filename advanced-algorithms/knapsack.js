@@ -23,13 +23,13 @@ var dynamicKnapsack = (function () {
     var memo = [0];
     var knapsack = function (capacity, size, value, n) {
         dynamicCount += 1;
-        if (n === 0 || capacity === 0) {
-            return memo[0];
-        }
-
         var result = memo[n];
 
         if (typeof result !== "number") {
+            if (n === 0 || capacity === 0) {
+                return memo[0];
+            }
+
             if (size[n - 1] > capacity) {
                 result = knapsack(capacity, size, value, n - 1);
                 memo[n] = result;
@@ -48,11 +48,28 @@ var dynamicKnapsack = (function () {
     return knapsack;
 }());
 
-var value = [4, 5, 10, 11, 13];
-var size = [3, 4, 7, 8, 9];
-var capacity = 16;
 var n = 5;
+var values = [];
+var index;
+for (index = 0; index < n; index += 1) {
+    values.push(Math.floor(Math.random() * (n + 1)));
+}
+var value = values;
+print("value: " + values);
+
+var sizes = [];
+var index;
+for (index = 0; index < n; index += 1) {
+    sizes.push(Math.floor(Math.random() * (n + 1)));
+}
+var size = sizes;
+print("size: " + sizes);
+
+var capacity = 20;
+
 print(knapsack(capacity, size, value, n));
+
 print("Count was: " + count);
 print(dynamicKnapsack(capacity, size, value, n));
+
 print("Dynamic Count was: " + dynamicCount);
